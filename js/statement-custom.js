@@ -84,7 +84,7 @@ new Vue({
     mounted(){
         
     }
-})
+});
 
 function print(){
     $('.wrapper').printThis();

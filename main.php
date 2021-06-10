@@ -246,9 +246,9 @@ function policy_receipt_shortcode()
             </div>
         </div>
     </div>
-    <button style="margin-top:30px;width:100%;padding:10px;margin-bottom:10px;" onclick="print()">Print</button>
     <button style="margin-top:30px;width:100%;padding:10px;margin-bottom:10px;"@click="viewAgain">Again</button>
-</div>';
+</div>
+<button style="margin-top:30px;width:100%;padding:10px;margin-bottom:10px;" onclick="print()">Print</button>';
 
 return $output;
 }
