@@ -240,7 +240,7 @@ function policy_receipt_shortcode()
                         </table>
                     </div>
                 </div>
-                <div style="margin-top:218px">
+                <div style="margin-top:288px">
                     <p style="text-align: center;font-weight:700">This RECEIPT is computer generated, authorized signature is not required</p>
                 </div>
             </div>
