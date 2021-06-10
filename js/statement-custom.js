@@ -6,6 +6,10 @@ new Vue({
         inputDOB: '',
         isData: 0,
         data: {},
+        formData : {
+            mobileNo : '',
+            prNo : '',
+        }
     },
     computed:{
         totalAmount(){
@@ -60,6 +64,26 @@ new Vue({
             } else {
                 this.popupMessage('error', 'Fillup All The Data');
             }
+        },
+        getData(){
+            this.data = {}
+            axios.get('http://ims.test/api/payment/get-data?provider=PolicyReceiptData&mobileNo='+this.formData.mobileNo+'&prNo='+this.formData.prNo)
+            .then(res=>{
+                this.data = Object.assign({}, res.data.data);
+            }).catch(err => {
+                this.popupMessage('error', err.response.data.message)
+            })
+        },
+        print(){
+            $('.wrapper').printThis();
+        },
+        getTotal(){
+            let totalPremium = parseInt(this.data.TotalPremium);
+            let lateFee = parseInt(this.data.LateFee ?? 0);
+            return totalPremium + lateFee;
         }
+    },
+    mounted(){
+        
     }
 })

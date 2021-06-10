@@ -1,19 +1,13 @@
 <?php
 
-// Adding Bootstrap
-
-// function add_theme_scripts()
-// {
-//     wp_enqueue_style('bootstrap', get_template_directory_uri() . '/milil/css/bootstrap.min.css');
-// }
-// add_action('wp_enqueue_scripts', 'add_theme_scripts');
-
-
-
-
-// Adding Custom Script
 
 add_action('wp_footer', 'my_custom_footer_js');
+
+add_shortcode('policystatement', 'policy_statement_shortcode');
+
+add_shortcode('policyreceipt', 'policy_receipt_shortcode');
+
+
 
 function my_custom_footer_js()
 {
@@ -22,6 +16,8 @@ function my_custom_footer_js()
     echo '<script src="' . get_template_directory_uri() . '/milil/js/custom-sweetalert.min.js"></script>';
     echo '<script src="' . get_template_directory_uri() . '/milil/js/statement-custom.js"></script>';
     echo '<script src="' . get_template_directory_uri() . '/milil/js/custom-moment.min.js"></script>';
+    echo '<script src="' . get_template_directory_uri() . '/milil/js/jquery.min.js"></script>';
+    echo '<script src="' . get_template_directory_uri() . '/milil/js/printthis.min.js"></script>';
 }
 
 
@@ -49,7 +45,7 @@ function policy_statement_shortcode()
                             <input placeholder="Date Of Birth" type="Date" class="form-control" v-model="inputDOB" required>
                         </div>
                         <br>
-                        <input @click="submit" class="btn btn-block" style="background-color:#1C6A49; color: #fff;" name="Preview" value="Preview">
+                        <input type="submit" @click="submit" class="btn btn-block" style="background-color:#1C6A49; color: #fff;" name="Preview" value="Preview">
 
                     </form>
                 </div>
@@ -132,4 +128,127 @@ function policy_statement_shortcode()
 }
 
 
-add_shortcode('policystatement', 'policy_statement_shortcode');
+
+// defining Shortcode
+
+function policy_receipt_shortcode()
+{
+    $output = '<div id="pStatement">
+    <div style="width:100%; margin: 0 auto">
+        <div style="text-align: center;width:50%;margin:0 auto;overflow:hidden" v-if="!Object.keys(data).length">
+            <div style="display: block;">
+                <label for="">PR Number/TransactionID</label>
+                <input type="text" v-model="formData.prNo">
+            </div>
+            <div style="display: block;">
+                <label for="">Mobile Number</label>
+                <input type="text" v-model="formData.mobileNo">
+            </div>
+            <div style="display: block;">
+                <button style="width:100%;padding:10px;cursor:pointer" @click="getData">Submit</button>
+            </div>
+        </div>
+        <div class="wrapper" v-else>
+            <div style="width:70%;text-align:center;margin:0 auto;">
+                <img src="logo.jpg" width="100%" style="margin:0 auto" height="auto" alt="">
+                <p>
+                    Head Office: Al-Razi Complex (8th Floor), 166-167,
+                    Shaheed Sayed Nazrul Islam Sharani Purana Paltan, Dhaka-1000
+                    <br>
+                    Email: info@milil.com.bd; Website: www.milil.com.bd; Hotline: 09603 001122
+                </p>
+            </div>
+            <div style="padding:10px;float:left;width:97%;border:2px solid #000">
+                <div style="display: block;width:97%;">
+                    <div style=" width:50%;">
+                        <p>
+                            Office : {{data.OfficeCode}}
+                            <br>
+                            Policy No : {{data.Policyno}}
+                            <br>
+                            PR No : {{formData.prNo}}
+                            <br>
+                            Date : {{formatDate(data.PRDate)}}
+                            <br>
+                            Premium No :
+                        </p>
+                    </div>
+                </div>
+                <div style="width:50%;float:left">.</div>
+                <div style="width:100%">
+                    <table style="width:100%;border-collapse: collapse;" border="1">
+                        <thead>
+                            <tr>
+                                <th>Policy Holders Name</th>
+                                <th>Risk Date</th>
+                                <th>Table-Term</th>
+                                <th>Due Date</th>
+                            </tr>
+                            <tr>
+                                <td rowspan="4">
+                                    {{data.Proposersname}}
+                                    <br>
+                                    {{data.ProposersAddress}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>{{formatDate(data.RiskDate)}}</td>
+                                <td>{{data.Planno}} - {{data.Term}}</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th>Sum Assured</th>
+                                <th>Mode </th>
+                                <th>Premium Amount</th>
+                            </tr>
+                            <tr>
+                                <td>{{data.SumAssured}}</td>
+                                <td>{{data.Mode}}</td>
+                                <td>{{data.TotalPremium}}</td>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+                <div style="margin-top: 10px;">
+                    <div style="float:left;width:60%">
+                        <p>Next Due Date : {{formatDate(data.NextDueDate)}}</p>
+                    </div>
+                    
+                    <div style="float:left;width:33%">
+                        <table border="0" width="100%">
+                            <tr>
+                                <td>Total Paid installment <span style="float:right">:</span></td>
+                                <td style="float:right">{{data.TotalInstallment}}</td>
+                            </tr>
+                            <tr>
+                                <td>Total Premium <span style="float:right">:</span></td>
+                                <td style="float:right">{{data.TotalPremium}}</td>
+                            </tr>
+                            <tr>
+                                <td>Late Fee <span style="float:right">:</span></td>
+                                <td style="float:right">{{data.LateFee}}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <div style="height:1px;width:100%;background:#000"></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Total <span style="float:right">:</span></td>
+                                <td style="float:right">{{getTotal()}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div style="margin-top:218px">
+                    <p style="text-align: center;font-weight:700">This RECEIPT is computer generated, authorized signature is not required</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button style="margin-top:30px;width:100%;padding:10px;margin-bottom:10px;" @click="print">Print</button>
+    <button style="margin-top:30px;width:100%;padding:10px;margin-bottom:10px;" @click="viewAgain">Again</button>
+</div>';
+
+return $output;
+}
