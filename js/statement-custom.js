@@ -86,6 +86,10 @@ new Vue({
     }
 });
 
+// $(document).ready(function(){
+    
+// })
+
 function print(){
-    $('.wrapper').printThis();
+    jQuery('.wrapper').printThis();
 }
