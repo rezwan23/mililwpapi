@@ -150,7 +150,7 @@ function policy_receipt_shortcode()
         </div>
         <div class="wrapper" v-else>
             <div style="width:70%;text-align:center;margin:0 auto;">
-                <img src="logo.jpg" width="100%" style="margin:0 auto" height="auto" alt="">
+                <img src="https://milil.com.bd/wp-content/uploads/2021/04/mercantile-logo1-Banner.jpg" width="100%" style="margin:0 auto" height="auto" alt="">
                 <p>
                     Head Office: Al-Razi Complex (8th Floor), 166-167,
                     Shaheed Sayed Nazrul Islam Sharani Purana Paltan, Dhaka-1000
