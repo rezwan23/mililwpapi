@@ -74,9 +74,7 @@ new Vue({
                 this.popupMessage('error', err.response.data.message)
             })
         },
-        print(){
-            $('.wrapper').printThis();
-        },
+        
         getTotal(){
             let totalPremium = parseInt(this.data.TotalPremium);
             let lateFee = parseInt(this.data.LateFee ?? 0);
@@ -87,3 +85,7 @@ new Vue({
         
     }
 })
+
+function print(){
+    $('.wrapper').printThis();
+}
