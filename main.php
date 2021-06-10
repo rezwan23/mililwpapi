@@ -15,7 +15,7 @@ function my_custom_footer_js()
     echo '<script src="' . get_template_directory_uri() . '/milil/js/custom-axios.min.js"></script>';
     echo '<script src="' . get_template_directory_uri() . '/milil/js/custom-sweetalert.min.js"></script>';
     echo '<script src="' . get_template_directory_uri() . '/milil/js/custom-moment.min.js"></script>';
-    // echo '<script src="' . get_template_directory_uri() . '/milil/js/jquery.min.js"></script>';
+    echo '<script src="' . get_template_directory_uri() . '/milil/js/jquery.min.js"></script>';
     echo '<script src="' . get_template_directory_uri() . '/milil/js/printthis.min.js"></script>';
     echo '<script src="' . get_template_directory_uri() . '/milil/js/statement-custom.js"></script>';
 }
