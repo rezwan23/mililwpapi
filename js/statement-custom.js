@@ -67,7 +67,7 @@ new Vue({
         },
         getData(){
             this.data = {}
-            axios.get('http://ims.test/api/payment/get-data?provider=PolicyReceiptData&mobileNo='+this.formData.mobileNo+'&prNo='+this.formData.prNo)
+            axios.get('https://ims.milil.com.bd/api/payment/get-data?provider=PolicyReceiptData&mobileNo='+this.formData.mobileNo+'&prNo='+this.formData.prNo)
             .then(res=>{
                 this.data = Object.assign({}, res.data.data);
             }).catch(err => {
