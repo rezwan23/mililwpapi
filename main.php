@@ -186,7 +186,7 @@ function policy_receipt_shortcode()
                             </tr>
                             <tr>
                                 <td rowspan="4">
-                                    {{data.Proposersname}}
+                                    {{data.ProposersName}}
                                     <br>
                                     {{data.ProposersAddress}}
                                 </td>
