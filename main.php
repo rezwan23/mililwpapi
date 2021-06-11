@@ -222,7 +222,7 @@ function policy_receipt_shortcode()
                             </tr>
                             <tr>
                                 <td>Total Premium <span style="float:right">:</span></td>
-                                <td style="float:right">{{data.TotalPremium}}</td>
+                                <td style="float:right">{{parseInt(data.TotalPremium) * parseInt(data.TotalInstallment)}}</td>
                             </tr>
                             <tr>
                                 <td>Late Fee <span style="float:right">:</span></td>
