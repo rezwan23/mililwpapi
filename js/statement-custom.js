@@ -76,16 +76,16 @@ new Vue({
         },
         
         getTotal(){
-            let totalPremium = parseInt(data.TotalPremium) * parseInt(data.TotalInstallment);
+            let totalPremium = parseInt(this.data.TotalPremium) * parseInt(this.data.TotalInstallment);
             let lateFee = parseInt(this.data.LateFee ?? 0);
             return totalPremium + lateFee;
         },
         premiumNumberString(){
-            if(parseInt(data.TotalInstallment) > 1){
-                let firstPaidInstallmentNumber = parseInt(this.data.LastNumberOfInstallment) - (parseInt(data.TotalInstallment) - 1 )
+            if(parseInt(this.data.TotalInstallment) > 1){
+                let firstPaidInstallmentNumber = parseInt(this.data.LastNumberOfInstallment) - (parseInt(this.data.TotalInstallment) - 1 )
                 let i = firstPaidInstallmentNumber;
                 let outputStr = firstPaidInstallmentNumber.toString();
-                for(let j = 1 ; j < parseInt(data.TotalInstallment); j++){
+                for(let j = 1 ; j < parseInt(this.data.TotalInstallment); j++){
                     outputStr += ', ' + (i + j).toString();
                 }
                 return outputStr;
