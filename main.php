@@ -170,7 +170,7 @@ function policy_receipt_shortcode()
                             <br>
                             Date : {{formatDate(data.PRDate)}}
                             <br>
-                            Premium No :
+                            Premium No : {{premiumNumberString()}}
                         </p>
                     </div>
                 </div>
