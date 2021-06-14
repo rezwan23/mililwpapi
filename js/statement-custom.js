@@ -50,7 +50,7 @@ new Vue({
 
         submit() {
             if (this.inputPolicy != '' && this.inputMobile != '' && this.inputDOB != '') {
-                axios.post(`https://ims.milil.com.bd/api/web/policy-statement`, {
+                axios.post(`https://test.milil.com.bd/api/web/policy-statement`, {
                     policy_number: this.inputPolicy,
                     mobile: this.inputMobile,
                     date_of_birth: this.inputDOB,
@@ -67,7 +67,7 @@ new Vue({
         },
         getData(){
             this.data = {}
-            axios.get('https://ims.milil.com.bd/api/payment/get-data?provider=PolicyReceiptData&mobileNo='+this.formData.mobileNo+'&prNo='+this.formData.prNo)
+            axios.get('https://test.milil.com.bd/api/payment/get-data?provider=PolicyReceiptData&mobileNo='+this.formData.mobileNo+'&prNo='+this.formData.prNo)
             .then(res=>{
                 this.data = Object.assign({}, res.data.data);
             }).catch(err => {
