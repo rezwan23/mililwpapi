@@ -11,7 +11,7 @@ add_shortcode('policyreceipt', 'policy_receipt_shortcode');
 
 function my_custom_footer_js()
 {
-    echo '<script src="' . get_template_directory_uri() . '/milil/js/custom-vue.js"></script>';
+    echo '<script src="' . get_template_directory_uri() . '/milil/js/custom-vue-production.min.js"></script>';
     echo '<script src="' . get_template_directory_uri() . '/milil/js/custom-axios.min.js"></script>';
     echo '<script src="' . get_template_directory_uri() . '/milil/js/custom-sweetalert.min.js"></script>';
     echo '<script src="' . get_template_directory_uri() . '/milil/js/custom-moment.min.js"></script>';
