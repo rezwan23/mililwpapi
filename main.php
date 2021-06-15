@@ -135,42 +135,69 @@ function policy_receipt_shortcode()
 {
     $output = '<div id="pStatement">
     <div style="width:100%; margin: 0 auto">
-        <div style="text-align: center;width:50%;margin:0 auto;overflow:hidden" v-if="!Object.keys(data).length">
+        <div style="text-align: left;width:50%;margin:0 auto;overflow:hidden" v-if="!Object.keys(data).length">
+
             <div style="display: block;">
                 <label for="">PR Number/TransactionID</label>
-                <input type="text" v-model="formData.prNo">
+                <input 
+                    style="width: 100%;
+                    padding: 12px 20px;
+                    margin: 8px 0;
+                    display: inline-block;
+                    border: 1px solid #ccc;
+                    border-radius: 4px;
+                    box-sizing: border-box; " 
+                    type="text" v-model="formData.prNo">
             </div>
+
             <div style="display: block;">
                 <label for="">Mobile Number</label>
-                <input type="text" v-model="formData.mobileNo">
+                <input style="width: 100%;
+                padding: 12px 20px;
+                margin: 8px 0;
+                display: inline-block;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                box-sizing: border-box; " type="text" v-model="formData.mobileNo">
             </div>
+
             <div style="display: block;">
-                <button style="width:100%;padding:10px;cursor:pointer" @click="getData">Submit</button>
+                <button style="width: 100%;
+                background-color: #00897B;
+                color: white;
+                padding: 14px 20px;
+                margin: 8px 0;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;" @click="getData">Submit</button>
             </div>
         </div>
+
+
         <div class="wrapper" v-else>
             <div style="width:70%;text-align:center;margin:0 auto;">
                 <img src="https://milil.com.bd/wp-content/uploads/2021/04/mercantile-logo1-Banner.jpg" width="100%" style="margin:0 auto" height="auto" alt="">
                 <p>
-                    Head Office: Al-Razi Complex (8th Floor), 166-167,
+                    <b>Head Office:</b> Al-Razi Complex (8th Floor), 166-167,
                     Shaheed Sayed Nazrul Islam Sharani Purana Paltan, Dhaka-1000
                     <br>
-                    Email: info@milil.com.bd; Website: www.milil.com.bd; Hotline: 09603 001122
+                    <b>Email:</b> info@milil.com.bd; <b>Website:</b> www.milil.com.bd; <b>Hotline:</b> 09603 001122
                 </p>
             </div>
-            <div style="padding:10px;float:left;width:97%;border:2px solid #000">
+            
+            <div style="padding:10px; padding-left:20px; float:left;width:95%;border:1px solid #000">
                 <div style="display: block;width:97%;">
                     <div style=" width:50%;">
                         <p>
-                            Office : {{data.OfficeCode}}
+                            <b>Office :</b> {{data.OfficeCode}}
                             <br>
-                            Policy No : {{data.Policyno}}
+                            <b>Policy No :</b> {{data.Policyno}}
                             <br>
-                            PR No : {{formData.prNo}}
+                            <b>PR No :</b> {{formData.prNo}}
                             <br>
-                            Date : {{formatDate(data.PRDate)}}
+                            <b>Date :</b> {{formatDate(data.PRDate)}}
                             <br>
-                            Premium No : {{premiumNumberString()}}
+                            <b>Premium No :</b> {{premiumNumberString()}}
                         </p>
                     </div>
                 </div>
@@ -246,9 +273,15 @@ function policy_receipt_shortcode()
             </div>
         </div>
     </div>
-    <button style="margin-top:30px;width:100%;padding:10px;margin-bottom:10px;"@click="viewAgain">Another Receipt Print</button>
+    <div style="padding-left: 30%">
+
+        <button style="background-color: #099268; color: #fff; margin-top:30px; margin-right: 2%; width:30%;float:left;padding:10px;margin-bottom:10px;"@click="viewAgain">Another Receipt Print</button>
+        <button style="background-color: #099268; color: #fff; talign: center; margin-top:30px;width:30%;float:left;padding:10px;margin-bottom:10px;" onclick="print()">Print</button>
+
+    </div>
+    
 </div>
-<button style="margin-top:30px;width:100%;padding:10px;margin-bottom:10px;" onclick="print()">Print</button>';
+';
 
 return $output;
 }
