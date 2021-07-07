@@ -6,14 +6,15 @@ new Vue({
         inputDOB: '',
         isData: 0,
         data: {},
-        formData : {
-            mobileNo : '',
-            prNo : '',
-        }
+        formData: {
+            mobileNo: '',
+            prNo: '',
+        },
+        MobileNo : '',
     },
-    computed:{
-        totalAmount(){
-            return this.data.payments.reduce((acc, curr)=>{
+    computed: {
+        totalAmount() {
+            return this.data.payments.reduce((acc, curr) => {
                 return acc + (parseInt(curr.NumberofPaidInstolment) * parseInt(this.data.totalPremium))
             }, 0)
         }
@@ -43,7 +44,7 @@ new Vue({
             return moment(date).format('DD-MMMM-YYYY');
         },
 
-        viewAgain(){
+        viewAgain() {
             this.isData = 0;
             this.data = {};
         },
@@ -55,7 +56,6 @@ new Vue({
                     mobile: this.inputMobile,
                     date_of_birth: this.inputDOB,
                 }).then(res => {
-                    console.log(res.data);
                     this.data = res.data;
                     this.isData = 1;
                 }).catch(err => {
@@ -65,44 +65,54 @@ new Vue({
                 this.popupMessage('error', 'Fillup All The Data');
             }
         },
-        getData(){
+        getData() {
             this.data = {}
-            axios.get('https://ims.milil.com.bd/api/payment/get-data?provider=PolicyReceiptData&mobileNo='+this.formData.mobileNo+'&prNo='+this.formData.prNo)
-            .then(res=>{
-                this.data = Object.assign({}, res.data.data);
-            }).catch(err => {
-                this.popupMessage('error', err.response.data.message)
-            })
+            axios.get('https://ims.milil.com.bd/api/payment/get-data?provider=PolicyReceiptData&mobileNo=' + this.formData.mobileNo + '&prNo=' + this.formData.prNo)
+                .then(res => {
+                    this.data = Object.assign({}, res.data.data);
+                }).catch(err => {
+                    this.popupMessage('error', err.response.data.message)
+                })
         },
-        
-        getTotal(){
+
+        getTotal() {
             let totalPremium = parseInt(this.data.TotalPremium) * parseInt(this.data.TotalInstallment);
             let lateFee = parseInt(this.data.LateFee ?? 0);
             return totalPremium + lateFee;
         },
-        premiumNumberString(){
-            if(parseInt(this.data.TotalInstallment) > 1){
-                let firstPaidInstallmentNumber = parseInt(this.data.LastNumberOfInstallment) - (parseInt(this.data.TotalInstallment) - 1 )
+        premiumNumberString() {
+            if (parseInt(this.data.TotalInstallment) > 1) {
+                let firstPaidInstallmentNumber = parseInt(this.data.LastNumberOfInstallment) - (parseInt(this.data.TotalInstallment) - 1)
                 let i = firstPaidInstallmentNumber;
                 let outputStr = firstPaidInstallmentNumber.toString();
-                for(let j = 1 ; j < parseInt(this.data.TotalInstallment); j++){
+                for (let j = 1; j < parseInt(this.data.TotalInstallment); j++) {
                     outputStr += ', ' + (i + j).toString();
                 }
                 return outputStr;
 
             }
             return this.data.LastNumberOfInstallment;
+        },
+        requestOTP() {
+            this.isData = 0;
+            axios.post('https://ims.milil.com.bd/api/generate-otp-for-proposal-entry', {
+                MobileNo: this.MobileNo
+            }).then(res => {
+                this.isData = 1;
+            }).catch(err => {
+                this.popupMessage('error', err.response.data.message)
+            });
         }
     },
-    mounted(){
-        
+    mounted() {
+
     }
 });
 
 // $(document).ready(function(){
-    
+
 // })
 
-function print(){
+function print() {
     jQuery('.wrapper').printThis();
 }
