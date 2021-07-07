@@ -687,7 +687,7 @@ function proposal_entry_shortcode()
                             <div class="grid-item">
                                 <label style="margin-right:117px;">Mobile Number</label>
                                 <input type="text" v-model="MobileNo" placeholder="Enter Mobile Number"><br>
-                                
+                                <button @click="requestOTP">Send<button>  
                             </div>
                         </div>    
                 </fieldset>
