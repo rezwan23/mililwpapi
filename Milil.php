@@ -16,19 +16,36 @@ class Milil{
         $this->includeShortCodes();
     }
 
-    public function includeAssets()
+    private function includeAssets()
     {
-        require_once 'scripts.php';
+        $this->jsFilesHookInit();
     }
 
 
-    public function includeShortCodes()
+    private function includeShortCodes()
     {
         $shortCodeFiles = scandir(__DIR__.DIRECTORY_SEPARATOR.'shortcodes');
 
         foreach($shortCodeFiles as $file){
             if(!is_dir(__DIR__.DIRECTORY_SEPARATOR.'shortcodes/'.$file)){
                 require_once 'shortcodes'.DIRECTORY_SEPARATOR.$file;
+            }
+            
+        }
+    }
+
+
+    private function jsFilesHookInit()
+    {
+        add_action('wp_footer', [$this, 'jsScripts']);
+    }
+
+    public function jsScripts()
+    {
+        $shortCodeFiles = scandir(__DIR__.DIRECTORY_SEPARATOR.'assets'.DIRECTORY_SEPARATOR.'js');
+        foreach($shortCodeFiles as $file){
+            if(!is_dir(__DIR__.DIRECTORY_SEPARATOR.'assets'.DIRECTORY_SEPARATOR.'js'.$file)){
+                echo '<script src="' . get_template_directory_uri() . '/milil/assets/js/'.$file.'"></script>';
             }
             
         }
