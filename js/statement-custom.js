@@ -1,4 +1,4 @@
-let popupMessage = (type = '', message) => {
+function popupMessage (type = '', message) {
     const Toast = Swal.mixin({
         toast: true,
         position: 'top-end',
