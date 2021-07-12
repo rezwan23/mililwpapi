@@ -26,7 +26,7 @@ class Milil{
     {
         $shortCodeFiles = scandir(getcwd().DIRECTORY_SEPARATOR.'shortcodes');
 
-        die($shortCodeFiles);
+        // die($shortCodeFiles);
 
         foreach($shortCodeFiles as $file){
             if(!is_dir($file)){
