@@ -1,3 +1,22 @@
+let popupMessage = (type = '', message) => {
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    })
+
+    Toast.fire({
+        icon: type,
+        title: message
+    })
+}
+
 new Vue({
     el: '#pStatement',
     data: {
@@ -21,24 +40,7 @@ new Vue({
     },
     methods: {
 
-        popupMessage(type = '', message) {
-            const Toast = Swal.mixin({
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 3000,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                    toast.addEventListener('mouseenter', Swal.stopTimer)
-                    toast.addEventListener('mouseleave', Swal.resumeTimer)
-                }
-            })
-
-            Toast.fire({
-                icon: type,
-                title: message
-            })
-        },
+        
 
         formatDate(date) {
             return moment(date).format('DD-MMMM-YYYY');
@@ -100,7 +102,7 @@ new Vue({
             }).then(res => {
                 this.isData = 1;
             }).catch(err => {
-                this.popupMessage('error', err.response.data.message)
+                window.popupMessage('error', err.response.data.message)
             });
         }
     },
