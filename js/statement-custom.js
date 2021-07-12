@@ -61,10 +61,10 @@ new Vue({
                     this.data = res.data;
                     this.isData = 1;
                 }).catch(err => {
-                    this.popupMessage('error', err.response.data.message)
+                    window.popupMessage('error', err.response.data.message)
                 });
             } else {
-                this.popupMessage('error', 'Fillup All The Data');
+                window.popupMessage('error', 'Fillup All The Data');
             }
         },
         getData() {
@@ -73,7 +73,7 @@ new Vue({
                 .then(res => {
                     this.data = Object.assign({}, res.data.data);
                 }).catch(err => {
-                    this.popupMessage('error', err.response.data.message)
+                    window.popupMessage('error', err.response.data.message)
                 })
         },
 
@@ -94,7 +94,19 @@ new Vue({
 
             }
             return this.data.LastNumberOfInstallment;
-        },
+        }
+    },
+    mounted() {
+
+    }
+});
+
+new Vue({
+    el : '#proposalEntry',
+    data : {
+        MobileNo : ''
+    },
+    methods : {
         requestOTP() {
             this.isData = 0;
             axios.post('https://ims.milil.com.bd/api/generate-otp-for-proposal-entry', {
@@ -105,15 +117,9 @@ new Vue({
                 window.popupMessage('error', err.response.data.message)
             });
         }
-    },
-    mounted() {
-
     }
-});
+})
 
-// $(document).ready(function(){
-
-// })
 
 function print() {
     jQuery('.wrapper').printThis();
