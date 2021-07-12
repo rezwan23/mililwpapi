@@ -53,7 +53,7 @@ new Vue({
 
         submit() {
             if (this.inputPolicy != '' && this.inputMobile != '' && this.inputDOB != '') {
-                axios.post(`https://ims.milil.com.bd/api/web/policy-statement`, {
+                axios.post(`http://ims.test/api/web/policy-statement`, {
                     policy_number: this.inputPolicy,
                     mobile: this.inputMobile,
                     date_of_birth: this.inputDOB,
@@ -69,7 +69,7 @@ new Vue({
         },
         getData() {
             this.data = {}
-            axios.get('https://ims.milil.com.bd/api/payment/get-data?provider=PolicyReceiptData&mobileNo=' + this.formData.mobileNo + '&prNo=' + this.formData.prNo)
+            axios.get('http://ims.test/api/payment/get-data?provider=PolicyReceiptData&mobileNo=' + this.formData.mobileNo + '&prNo=' + this.formData.prNo)
                 .then(res => {
                     this.data = Object.assign({}, res.data.data);
                 }).catch(err => {
@@ -104,16 +104,41 @@ new Vue({
 new Vue({
     el : '#proposalEntry',
     data : {
-        MobileNo : ''
+        MobileNo : '',
+        isData : 0,
+        errors : {},
+        step : 1,
+        OTP : ''
+        // step 1 : request for otp; step 2 : otp validation
     },
     methods : {
         requestOTP() {
             this.isData = 0;
-            axios.post('https://ims.milil.com.bd/api/generate-otp-for-proposal-entry', {
+            this.errors = {};
+            axios.post('http://ims.test/api/generate-otp-for-proposal-entry', {
                 MobileNo: this.MobileNo
             }).then(res => {
-                this.isData = 1;
+                this.step = 2;
+                window.popupMessage('success', res.data.message)
             }).catch(err => {
+                if(err.response.status == 422){
+                    this.errors = err.response.data.errors
+                }
+                window.popupMessage('error', err.response.data.message)
+            });
+        },
+        validateOTP(){
+            this.isData = 0;
+            this.errors = {};
+            axios.post('http://ims.test/api/validate-otp-for-proposal-entry', {
+                OTP: this.OTP
+            }).then(res => {
+                this.isData = 1;
+                window.popupMessage('success', res.data.message)
+            }).catch(err => {
+                if(err.response.status == 422){
+                    this.errors = err.response.data.errors
+                }
                 window.popupMessage('error', err.response.data.message)
             });
         }
