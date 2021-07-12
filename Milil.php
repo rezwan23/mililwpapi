@@ -18,19 +18,17 @@ class Milil{
 
     public function includeAssets()
     {
-        include_once 'scripts.php';
+        require_once 'scripts.php';
     }
 
 
     public function includeShortCodes()
     {
-        $shortCodeFiles = scandir(getcwd().DIRECTORY_SEPARATOR.'shortcodes');
-
-        // die($shortCodeFiles);
+        $shortCodeFiles = scandir(__DIR__.DIRECTORY_SEPARATOR.'shortcodes');
 
         foreach($shortCodeFiles as $file){
-            if(!is_dir($file)){
-                require_once $file;
+            if(!is_dir(__DIR__.DIRECTORY_SEPARATOR.'shortcodes/'.$file)){
+                require_once 'shortcodes'.DIRECTORY_SEPARATOR.$file;
             }
             
         }
