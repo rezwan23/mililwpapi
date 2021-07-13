@@ -42,8 +42,8 @@ class Milil{
 
     public function jsScripts()
     {
-        $shortCodeFiles = scandir(__DIR__.DIRECTORY_SEPARATOR.'assets'.DIRECTORY_SEPARATOR.'js');
-        foreach($shortCodeFiles as $file){
+        $jsScripts = scandir(__DIR__.DIRECTORY_SEPARATOR.'assets'.DIRECTORY_SEPARATOR.'js');
+        foreach($jsScripts as $file){
             if(!is_dir(__DIR__.DIRECTORY_SEPARATOR.'assets'.DIRECTORY_SEPARATOR.'js'.$file)){
                 echo '<script src="' . get_template_directory_uri() . '/milil/assets/js/'.$file.'"></script>';
             }
